@@ -44,5 +44,37 @@ public class Employee {
     @Column(name = "department", nullable = false, length = 100)
     private String department;
 
+    @NotBlank(message = "Designation is required")
+    @Size(max = 100, message = "Designation must not exceed 100 characters")
+    @Column(name = "designation", nullable = false, length = 100)
+    private String designation;
 
+    @NotNull(message = "Salary is required")
+    @Positive(message = "Salary must be a positive number")
+    @Column(name = "salary", nullable = false)
+    private Double salary;
+
+    @Pattern(regexp = "^[0-9]{10}$", message = "Phone number must be exactly 10 digits")
+    @Column(name = "phone", length = 10)
+    private String phone;
+
+    @Past(message = "Date of birth must be in the past")
+    @Column(name = "date_of_birth")
+    private LocalDate dateOfBirth;
+
+    @PastOrPresent(message = "Date of joining cannot be in the future")
+    @Column(name = "date_of_joining")
+    private LocalDate dateOfJoining;
+
+    @Column(name = "active")
+    @Builder.Default
+    private Boolean active = true;
+
+    @CreationTimestamp
+    @Column(name = "created_at", updatable = false)
+    private LocalDateTime createdAt;
+
+    @UpdateTimestamp
+    @Column(name = "updated_at")
+    private LocalDateTime updatedAt;
 }
