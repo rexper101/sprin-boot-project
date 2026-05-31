@@ -45,3 +45,21 @@ public class ApiResponse<T> {
                 .timestamp(LocalDateTime.now())
                 .build();
     }
+
+    public static <T> ApiResponse<T> error(int status, String message) {
+        return ApiResponse.<T>builder()
+                .status(status)
+                .message(message)
+                .timestamp(LocalDateTime.now())
+                .build();
+    }
+
+    public static <T> ApiResponse<T> error(int status, String message, Map<String, String> errors) {
+        return ApiResponse.<T>builder()
+                .status(status)
+                .message(message)
+                .errors(errors)
+                .timestamp(LocalDateTime.now())
+                .build();
+    }
+}
