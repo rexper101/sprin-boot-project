@@ -37,5 +37,16 @@ public class EmployeeDTO {
     @Size(max = 100)
     private String designation;
 
-    
+    @NotNull(message = "Salary is required")
+    @Positive(message = "Salary must be a positive number")
+    private Double salary;
+
+    @Pattern(regexp = "^[0-9]{10}$", message = "Phone number must be exactly 10 digits")
+    private String phone;
+
+    @Past(message = "Date of birth must be in the past")
+    private LocalDate dateOfBirth;
+
+    @PastOrPresent(message = "Date of joining cannot be in the future")
+    private LocalDate dateOfJoining;
 }
