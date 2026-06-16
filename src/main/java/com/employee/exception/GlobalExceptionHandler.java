@@ -35,18 +35,6 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
     }
 
-    /** Handle resource-not-found. */
-    @ExceptionHandler(ResourceNotFoundException.class)
-    public ResponseEntity<ApiResponse<Void>> handleResourceNotFound(
-            ResourceNotFoundException ex) {
-
-        ApiResponse<Void> response = ApiResponse.error(
-                HttpStatus.NOT_FOUND.value(),
-                ex.getMessage()
-        );
-        return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
-    }
-
     /** Handle duplicate-resource / conflict. */
     @ExceptionHandler(DuplicateResourceException.class)
     public ResponseEntity<ApiResponse<Void>> handleDuplicateResource(
