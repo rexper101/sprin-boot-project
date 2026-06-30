@@ -124,3 +124,19 @@ public class EmployeeController {
         return ResponseEntity.ok(
                 ApiResponse.success("Employees in department '" + department + "' retrieved", results)
         );
+    }
+
+    /**
+     * GET /api/employees/status?active=true|false
+     * Filter employees by active status.
+     */
+    @GetMapping("/status")
+    public ResponseEntity<ApiResponse<List<EmployeeDTO>>> getByActiveStatus(
+            @RequestParam Boolean active) {
+
+        List<EmployeeDTO> results = employeeService.getByActiveStatus(active);
+        return ResponseEntity.ok(
+                ApiResponse.success("Employees filtered by active=" + active, results)
+        );
+    }
+}
