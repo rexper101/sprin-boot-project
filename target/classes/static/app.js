@@ -20,6 +20,7 @@ const dom = {
     searchInput: $('#searchInput'),
     addBtn: $('#addEmployeeBtn'),
     viewAllBtn: $('#viewAllBtn'),
+    themeToggle: $('#themeToggle'),
     // Views
     dashboardView: $('#dashboardView'),
     employeesView: $('#employeesView'),
@@ -520,7 +521,30 @@ function handleTableAction(event) {
 }
 
 // ===== Event Listeners =====
+function applyTheme(theme) {
+    const isLight = theme === 'light';
+    document.body.classList.toggle('light-theme', isLight);
+    const icon = dom.themeToggle?.querySelector('svg');
+    if (!icon) return;
+    icon.style.transform = isLight ? 'rotate(180deg)' : 'rotate(0deg)';
+}
+
+function initTheme() {
+    const savedTheme = localStorage.getItem('ot-theme') || 'dark';
+    applyTheme(savedTheme);
+
+    if (dom.themeToggle) {
+        dom.themeToggle.addEventListener('click', () => {
+            const nextTheme = document.body.classList.contains('light-theme') ? 'dark' : 'light';
+            localStorage.setItem('ot-theme', nextTheme);
+            applyTheme(nextTheme);
+        });
+    }
+}
+
 function init() {
+    initTheme();
+
     // Navigation
     $$('.nav-item').forEach(item => {
         item.addEventListener('click', (e) => {
