@@ -11,6 +11,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Objects;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -43,7 +44,7 @@ class EmployeeServiceTest {
 
         when(employeeRepository.existsByEmailIgnoreCase("alice@example.com")).thenReturn(false);
         when(employeeRepository.save(any(Employee.class))).thenAnswer(invocation -> {
-            Employee employee = invocation.getArgument(0, Employee.class);
+            Employee employee = Objects.requireNonNull(invocation.getArgument(0));
             employee.setId(1L);
             return employee;
         });
@@ -63,16 +64,15 @@ class EmployeeServiceTest {
 
     @Test
     void searchByName_withBlankKeyword_shouldReturnAllEmployees() {
-        Employee employee = Employee.builder()
-                .id(1L)
-                .firstName("Alice")
-                .lastName("Smith")
-                .email("alice@example.com")
-                .department("Engineering")
-                .designation("Engineer")
-                .salary(100000.0)
-                .active(true)
-                .build();
+        Employee employee = new Employee();
+        employee.setId(1L);
+        employee.setFirstName("Alice");
+        employee.setLastName("Smith");
+        employee.setEmail("alice@example.com");
+        employee.setDepartment("Engineering");
+        employee.setDesignation("Engineer");
+        employee.setSalary(100000.0);
+        employee.setActive(true);
 
         when(employeeRepository.findAll()).thenReturn(List.of(employee));
 
