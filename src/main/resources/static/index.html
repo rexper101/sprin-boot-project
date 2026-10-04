@@ -130,32 +130,61 @@
                 </div>
             </div>
 
-            <!-- Recent Employees -->
-            <div class="card">
-                <div class="card-header">
-                    <h2>Recent Employees</h2>
-                    <button class="btn btn-ghost" id="viewAllBtn">View All →</button>
-                </div>
-                <div class="table-wrapper">
-                    <table class="data-table" id="recentTable">
-                        <thead>
-                            <tr>
-                                <th>Employee</th>
-                                <th>Department</th>
-                                <th>Designation</th>
-                                <th>Salary</th>
-                                <th>Status</th>
-                            </tr>
-                        </thead>
-                        <tbody id="recentTableBody">
-                        </tbody>
-                    </table>
-                    <div class="empty-state" id="dashboardEmpty" style="display:none;">
-                        <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-                        <h3>No employees yet</h3>
-                        <p>Click "Add Employee" to get started</p>
+            <div class="dashboard-grid">
+                <div class="content-column">
+                    <!-- Recent Employees -->
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>Recent Employees</h2>
+                            <button class="btn btn-ghost" id="viewAllBtn">View All →</button>
+                        </div>
+                        <div class="table-wrapper">
+                            <table class="data-table" id="recentTable">
+                                <thead>
+                                    <tr>
+                                        <th>Employee</th>
+                                        <th>Department</th>
+                                        <th>Designation</th>
+                                        <th>Salary</th>
+                                        <th>Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="recentTableBody">
+                                </tbody>
+                            </table>
+                            <div class="empty-state" id="dashboardEmpty" style="display:none;">
+                                <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                                <h3>No employees yet</h3>
+                                <p>Click "Add Employee" to get started</p>
+                            </div>
+                        </div>
                     </div>
                 </div>
+
+                <aside class="summary-panel">
+                    <div class="panel-card profile-card">
+                        <div class="panel-header">
+                            <span class="chip">Team status</span>
+                            <span class="status-pill online">Online</span>
+                        </div>
+                        <div class="profile-wrap">
+                            <div class="profile-avatar">OT</div>
+                            <div>
+                                <h3>Operations Team</h3>
+                                <p id="summaryTeamText">All systems healthy</p>
+                            </div>
+                        </div>
+                        <div class="mini-metric">
+                            <span>Productivity</span>
+                            <strong id="summaryProductivity">92%</strong>
+                        </div>
+                    </div>
+
+                    <div class="panel-card">
+                        <div class="panel-header"><h4>Department load</h4></div>
+                        <div class="department-list" id="departmentList"></div>
+                    </div>
+                </aside>
             </div>
         </section>
 

@@ -28,6 +28,10 @@ const dom = {
     deptCount: $('#deptCount'),
     activeCount: $('#activeCount'),
     avgSalary: $('#avgSalary'),
+    // Summary panel
+    summaryTeamText: $('#summaryTeamText'),
+    summaryProductivity: $('#summaryProductivity'),
+    departmentList: $('#departmentList'),
     // Tables
     recentTableBody: $('#recentTableBody'),
     employeesTableBody: $('#employeesTableBody'),
@@ -171,6 +175,41 @@ function updateStats() {
     animateNumber(dom.deptCount, departments.size);
     animateNumber(dom.activeCount, active);
     dom.avgSalary.textContent = formatSalary(Math.round(avgSal));
+
+    const departmentCounts = {};
+    allEmployees.forEach(emp => {
+        if (!emp.department) return;
+        departmentCounts[emp.department] = (departmentCounts[emp.department] || 0) + 1;
+    });
+
+    const maxCount = Math.max(...Object.values(departmentCounts), 1);
+    const items = Object.entries(departmentCounts)
+        .sort((a, b) => b[1] - a[1])
+        .map(([name, count]) => ({
+            name,
+            value: count,
+            width: `${Math.max((count / maxCount) * 100, 14)}%`
+        }));
+
+    dom.departmentList.innerHTML = items.length
+        ? items.map(item => `
+            <div class="department-item">
+                <div class="department-meta">
+                    <span>${escapeHtml(item.name)}</span>
+                    <strong>${item.value}</strong>
+                </div>
+                <div class="bar-track">
+                    <div class="bar-fill" style="width: ${item.width};"></div>
+                </div>
+            </div>
+        `).join('')
+        : '<div class="empty-state compact-empty"><p>No department data yet</p></div>';
+
+    const productivity = total ? Math.min(98, Math.max(70, Math.round((active / Math.max(total, 1)) * 100))) : 0;
+    dom.summaryProductivity.textContent = `${productivity}%`;
+    dom.summaryTeamText.textContent = total
+        ? `${active} of ${total} team members active`
+        : 'All systems healthy';
 
     // Update department filter
     const currentFilter = dom.deptFilter.value;
