@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employees</title>
+    <style>
+        :root {
+            --bg: #f4f7fb;
+            --card: #ffffff;
+            --primary: #4f46e5;
+            --primary-soft: #eef2ff;
+            --danger: #ef4444;
+            --text: #172033;
+            --muted: #64748b;
+            --border: #e2e8f0;
+            --shadow: 0 18px 40px rgba(15, 23, 42, 0.08);
+        }
+        * { box-sizing: border-box; }
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+        }
+        a { text-decoration: none; }
+        .topbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(255,255,255,0.9);
+            padding: 18px 36px;
+            border-bottom: 1px solid var(--border);
+        }
+        .brand { font-size: 1.5rem; font-weight: 700; color: var(--primary); }
+        .nav { display: flex; gap: 22px; }
+        .nav a { color: var(--muted); font-weight: 700; }
+        .nav a.active { color: var(--primary); }
+        .button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border: none;
+            border-radius: 10px;
+            padding: 0.8rem 1.2rem;
+            font-weight: 700;
+            cursor: pointer;
+        }
+        .button.primary { background: var(--primary); color: white; }
+        .button.danger { background: var(--danger); color: white; }
+        .container {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 0 20px 60px;
+        }
+        .panel {
+            background: var(--card);
+            border-radius: 18px;
+            border: 1px solid var(--border);
+            box-shadow: var(--shadow);
+            padding: 24px;
+        }
+        .page-head {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 22px;
+            gap: 18px;
+        }
+        .search-form {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+        .search-form input {
+            padding: 0.9rem 1rem;
+            border-radius: 10px;
+            border: 1px solid var(--border);
+            min-width: 220px;
+        }
+        .alert { 
+            padding: 12px 16px; 
+            border-radius: 10px; 
+            margin-bottom: 18px; 
+            background: rgba(16,185,129,0.12); 
+            border: 1px solid rgba(16,185,129,0.2); 
+            color: #047857; 
+            font-weight: 600;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            text-align: left;
+            padding: 14px 10px;
+            border-bottom: 1px solid var(--border);
+        }
+        th {
+            color: var(--muted);
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+        }
+        .status {
+            display: inline-block;
+            padding: 6px 10px;
+            border-radius: 999px;
+            font-weight: 700;
+            font-size: 0.72rem;
+        }
+        .status.active { background: rgba(16,185,129,0.12); color: #047857; }
+        .status.inactive { background: rgba(239,68,68,0.12); color: #b91c1c; }
+        .actions {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+        .link-btn {
+            color: var(--primary);
+            font-weight: 700;
+        }
+        .inline-form { display: inline; }
+        @media (max-width: 640px) {
+            .topbar { padding: 16px 18px; }
+            .nav { display: none; }
+            .page-head { display: block; }
+            .search-form { margin-top: 14px; }
+            .search-form input { min-width: 0; width: 100%; }
+        }
+    </style>
+</head>
+<body>
+    <header class="topbar">
+        <div class="brand">EmployeeHub</div>
+        <nav class="nav">
+            <a th:href="@{/dashboard}">Dashboard</a>
+            <a class="active" th:href="@{/employees}">Employees</a>
+            <a th:href="@{/employees/new}">Add Employee</a>
+        </nav>
+        <a class="button primary" th:href="@{/employees/new}">+ Add Employee</a>
+    </header>
+
+    <main class="container">
+        <div class="panel">
+            <div th:if="${successMessage}" class="alert" th:text="${successMessage}">Saved successfully.</div>
+
+            <div class="page-head">
+                <h1>Employees</h1>
+                <form class="search-form" th:action="@{/employees/search}" method="get">
+                    <input type="text" name="name" placeholder="Search by name" th:value="${searchTerm}" />
+                    <button class="button primary" type="submit">Search</button>
+                </form>
+            </div>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Department</th>
+                        <th>Designation</th>
+                        <th>Salary</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="employee : ${employees}">
+                        <td th:text="${employee.id}">1</td>
+                        <td th:text="${employee.firstName + ' ' + employee.lastName}">John Doe</td>
+                        <td th:text="${employee.email}">john@example.com</td>
+                        <td th:text="${employee.department}">Engineering</td>
+                        <td th:text="${employee.designation}">Developer</td>
+                        <td th:text="${#numbers.formatCurrency(employee.salary)}">₹0</td>
+                        <td>
+                            <span class="status" th:classappend="${employee.active != null && employee.active ? 'active' : 'inactive'}"
+                                  th:text="${employee.active != null && employee.active ? 'Active' : 'Inactive'}">Active</span>
+                        </td>
+                        <td class="actions">
+                            <a class="link-btn" th:href="@{'/employees/' + ${employee.id} + '/edit'}">Edit</a>
+                            <form class="inline-form" th:action="@{'/employees/' + ${employee.id} + '/delete'}" method="post">
+                                <button class="button danger" type="submit">Delete</button>
+                            </form>
+                        </td>
+                    </tr>
+                    <tr th:if="${#lists.isEmpty(employees)}">
+                        <td colspan="8">No employees found.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </main>
+</body>
+</html>
