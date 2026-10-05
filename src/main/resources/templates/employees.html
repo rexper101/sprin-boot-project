@@ -138,7 +138,10 @@
             <a class="active" th:href="@{/employees}">Employees</a>
             <a th:href="@{/employees/new}">Add Employee</a>
         </nav>
-        <a class="button primary" th:href="@{/employees/new}">+ Add Employee</a>
+        <div style="display:flex; gap:12px; align-items:center;">
+            <a class="button primary" th:href="@{/employees/new}">+ Add Employee</a>
+            <form th:action="@{/logout}" method="post"><button class="button" type="submit" style="background:#eef2ff;color:var(--primary);">Logout</button></form>
+        </div>
     </header>
 
     <main class="container">
@@ -169,7 +172,19 @@
                 <tbody>
                     <tr th:each="employee : ${employees}">
                         <td th:text="${employee.id}">1</td>
-                        <td th:text="${employee.firstName + ' ' + employee.lastName}">John Doe</td>
+                        <td>
+                            <div style="display:flex; align-items:center; gap:12px;">
+                                <img th:if="${employee.profileImageUrl != null and !#strings.isEmpty(employee.profileImageUrl)}"
+                                     th:src="${employee.profileImageUrl}"
+                                     alt="Profile"
+                                     style="width:36px;height:36px;border-radius:50%;object-fit:cover;border:2px solid #e2e8f0;" />
+                                <div th:unless="${employee.profileImageUrl != null and !#strings.isEmpty(employee.profileImageUrl)}"
+                                     style="width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,#4f46e5,#8b5cf6);color:white;display:flex;align-items:center;justify-content:center;font-weight:700;">
+                                    <span th:text="${#strings.substring(employee.firstName,0,1) + #strings.substring(employee.lastName,0,1)}">JD</span>
+                                </div>
+                                <span th:text="${employee.firstName + ' ' + employee.lastName}">John Doe</span>
+                            </div>
+                        </td>
                         <td th:text="${employee.email}">john@example.com</td>
                         <td th:text="${employee.department}">Engineering</td>
                         <td th:text="${employee.designation}">Developer</td>

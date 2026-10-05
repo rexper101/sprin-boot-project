@@ -39,6 +39,7 @@ class EmployeeServiceTest {
                 .designation("  Software Engineer  ")
                 .salary(120000.0)
                 .phone(" 9876543210 ")
+                .profileImageUrl("  https://example.com/avatar.png  ")
                 .dateOfBirth(LocalDate.of(1990, 1, 1))
                 .dateOfJoining(LocalDate.of(2024, 1, 1))
                 .build();
@@ -58,6 +59,7 @@ class EmployeeServiceTest {
         assertEquals("Engineering", result.getDepartment());
         assertEquals("Software Engineer", result.getDesignation());
         assertEquals("9876543210", result.getPhone());
+        assertEquals("https://example.com/avatar.png", result.getProfileImageUrl());
         assertEquals(Boolean.TRUE, result.getActive());
         assertTrue(result.getId() != null);
         verify(employeeRepository).save(any(Employee.class));

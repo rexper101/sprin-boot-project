@@ -46,6 +46,9 @@ public class EmployeeDTO {
     @Pattern(regexp = "^[0-9]{10}$", message = "Phone number must be exactly 10 digits")
     private String phone;
 
+    @Size(max = 255, message = "Profile image URL must not exceed 255 characters")
+    private String profileImageUrl;
+
     @Past(message = "Date of birth must be in the past")
     private LocalDate dateOfBirth;
 

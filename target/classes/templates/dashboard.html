@@ -190,7 +190,10 @@
             <a th:href="@{/employees}">Employees</a>
             <a th:href="@{/employees/new}">Add Employee</a>
         </nav>
-        <a class="button primary" th:href="@{/employees/new}">+ New Employee</a>
+        <div style="display:flex; gap:12px; align-items:center;">
+            <a class="button primary" th:href="@{/employees/new}">+ New Employee</a>
+            <form th:action="@{/logout}" method="post"><button class="button" type="submit" style="background:#eef2ff;color:var(--primary);">Logout</button></form>
+        </div>
     </header>
 
     <main class="container">
@@ -228,7 +231,19 @@
                     </thead>
                     <tbody>
                     <tr th:each="employee : ${recentEmployees}">
-                        <td th:text="${employee.firstName + ' ' + employee.lastName}">Employee Name</td>
+                        <td>
+                            <div style="display:flex; align-items:center; gap:12px;">
+                                <img th:if="${employee.profileImageUrl != null and !#strings.isEmpty(employee.profileImageUrl)}"
+                                     th:src="${employee.profileImageUrl}"
+                                     alt="Profile"
+                                     style="width:34px;height:34px;border-radius:50%;object-fit:cover;border:2px solid #e2e8f0;" />
+                                <div th:unless="${employee.profileImageUrl != null and !#strings.isEmpty(employee.profileImageUrl)}"
+                                     style="width:34px;height:34px;border-radius:50%;background:linear-gradient(135deg,#4f46e5,#8b5cf6);color:white;display:flex;align-items:center;justify-content:center;font-weight:700;">
+                                    <span th:text="${#strings.substring(employee.firstName,0,1) + #strings.substring(employee.lastName,0,1)}">JD</span>
+                                </div>
+                                <span th:text="${employee.firstName + ' ' + employee.lastName}">Employee Name</span>
+                            </div>
+                        </td>
                         <td th:text="${employee.department}">Department</td>
                         <td th:text="${employee.designation}">Designation</td>
                         <td th:text="${#numbers.formatCurrency(employee.salary)}">₹0</td>

@@ -58,6 +58,9 @@ public class Employee {
     @Column(name = "phone", length = 10)
     private String phone;
 
+    @Column(name = "profile_image_url", length = 255)
+    private String profileImageUrl;
+
     @Past(message = "Date of birth must be in the past")
     @Column(name = "date_of_birth")
     private LocalDate dateOfBirth;

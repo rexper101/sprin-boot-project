@@ -20,7 +20,7 @@ public class EmployeeViewController {
 
     private final EmployeeService employeeService;
 
-    @GetMapping({"/", "/dashboard"})
+    @GetMapping("/dashboard")
     public String dashboard(Model model) {
         List<EmployeeDTO> employees = employeeService.getAllEmployees();
 

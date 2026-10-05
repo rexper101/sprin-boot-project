@@ -97,6 +97,7 @@ public class EmployeeService {
             existing.setActive(normalizedDto.getActive());
         }
         existing.setPhone(normalizedDto.getPhone());
+        existing.setProfileImageUrl(normalizedDto.getProfileImageUrl());
         existing.setDateOfBirth(normalizedDto.getDateOfBirth());
         existing.setDateOfJoining(normalizedDto.getDateOfJoining());
 
@@ -178,6 +179,7 @@ public class EmployeeService {
                 .salary(dto.getSalary())
                 .active(dto.getActive())
                 .phone(normalizeText(dto.getPhone()))
+                .profileImageUrl(normalizeText(dto.getProfileImageUrl()))
                 .dateOfBirth(dto.getDateOfBirth())
                 .dateOfJoining(dto.getDateOfJoining())
                 .build();
@@ -202,6 +204,7 @@ public class EmployeeService {
                 .salary(dto.getSalary())
                 .active(dto.getActive())
                 .phone(dto.getPhone())
+                .profileImageUrl(dto.getProfileImageUrl())
                 .dateOfBirth(dto.getDateOfBirth())
                 .dateOfJoining(dto.getDateOfJoining())
                 .build();
@@ -219,6 +222,7 @@ public class EmployeeService {
                 .salary(entity.getSalary())
                 .active(entity.getActive())
                 .phone(entity.getPhone())
+                .profileImageUrl(entity.getProfileImageUrl())
                 .dateOfBirth(entity.getDateOfBirth())
                 .dateOfJoining(entity.getDateOfJoining())
                 .build();
