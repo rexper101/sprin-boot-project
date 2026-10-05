@@ -25,8 +25,8 @@ public class EmployeeViewController {
         List<EmployeeDTO> employees = employeeService.getAllEmployees();
 
         Map<String, Long> departmentBreakdown = employees.stream()
-                .filter(employee -> employee.getDepartment() != null && !employee.getDepartment().isBlank())
-                .collect(Collectors.groupingBy(EmployeeDTO::getDepartment, Collectors.counting()));
+                .filter(employee -> employee != null && employee.getDepartment() != null && !employee.getDepartment().isBlank())
+                .collect(Collectors.groupingBy(employee -> employee.getDepartment(), Collectors.counting()));
 
         model.addAttribute("totalEmployees", employees.size());
         model.addAttribute("activeEmployees", employees.stream().filter(e -> e.getActive() == null || e.getActive()).count());
