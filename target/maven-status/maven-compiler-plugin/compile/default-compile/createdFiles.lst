@@ -1,16 +1,2 @@
-com\employee\dto\ApiResponse$ApiResponseBuilder.class
-com\employee\exception\ResourceNotFoundException.class
-com\employee\controller\EmployeeViewController.class
 com\employee\model\Employee.class
-com\employee\service\EmployeeService.class
-com\employee\exception\GlobalExceptionHandler.class
-com\employee\dto\EmployeeDTO$EmployeeDTOBuilder.class
-com\employee\exception\DuplicateResourceException.class
-com\employee\model\Employee$EmployeeBuilder.class
-com\employee\config\SecurityConfig.class
-com\employee\EmployeeManagementApplication.class
-com\employee\controller\LoginController.class
-com\employee\controller\EmployeeController.class
 com\employee\dto\EmployeeDTO.class
-com\employee\repository\EmployeeRepository.class
-com\employee\dto\ApiResponse.class
