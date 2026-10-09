@@ -1,4 +1,15 @@
 {
     "java.compile.nullAnalysis.mode": "automatic",
-    "java.configuration.updateBuildConfiguration": "interactive"
+    "java.configuration.updateBuildConfiguration": "automatic",
+    "java.configuration.runtimes": [
+        {
+            "name": "JavaSE-21",
+            "path": "C:\\Program Files\\Eclipse Adoptium\\jdk-21.0.11.10-hotspot"
+        },
+        {
+            "name": "JavaSE-25",
+            "path": "C:\\Users\\anike\\.jdk\\jdk-25.0.2",
+            "default": true
+        }
+    ]
 }
