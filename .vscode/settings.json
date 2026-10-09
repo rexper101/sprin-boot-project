@@ -4,12 +4,12 @@
     "java.configuration.runtimes": [
         {
             "name": "JavaSE-21",
-            "path": "C:\\Program Files\\Eclipse Adoptium\\jdk-21.0.11.10-hotspot"
+            "path": "C:\\Program Files\\Eclipse Adoptium\\jdk-21.0.11.10-hotspot",
+            "default": true
         },
         {
             "name": "JavaSE-25",
-            "path": "C:\\Users\\anike\\.jdk\\jdk-25.0.2",
-            "default": true
+            "path": "C:\\Users\\anike\\.jdk\\jdk-25.0.2"
         }
     ]
 }
